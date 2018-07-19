@@ -59,5 +59,5 @@ Add a route <Route exect path='/'. Move the code.
 5. Add a link:
 Add Link to Import
 Instead of <a> add Link in open-search and close-search classes.
-6. Creat new files Search.js, Shelf.js and ChangeShelf.js and add them to App.js
-7. Add componentDidMount() to dynamically fetch data.
+6. Creat new files Search.js, Shelf.js, ChangeShelf.js, Book.js and add them to App.js
+7. Decompose App.js to created files using props.

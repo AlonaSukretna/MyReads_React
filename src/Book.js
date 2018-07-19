@@ -13,6 +13,13 @@ class Book extends React.Component {
         cover: props.cover,
         shelf: props.shelf
       };
+
+      this.change = this.change.bind(this);
+      this.changeShelf = this.changeShelf.bind(this);
+  }
+
+  changeShelf(id, authors, cover, newshelf) {
+    this.props.onChangeShelf(id, authors, cover, newshelf);
   }
 
   componentWillReceiveProps(props) {
@@ -24,6 +31,18 @@ class Book extends React.Component {
     });
   }
 
+  change(event){
+    //console.log(event.target.value);
+    this.setState({
+      shelf: event.target.value
+    });
+
+    this.changeShelf(this.state.title,
+                     this.state.authors,
+                     this.state.cover,
+                     event.target.value);
+  }
+
   render() {
 		return (
       <div className="book">
@@ -31,12 +50,12 @@ class Book extends React.Component {
           <div className="book-cover" style={{ width: 128, height: 188, backgroundImage:
             `url(${this.state.cover})` }}></div>
           <div className="book-shelf-changer">
-            <select>
-              <option value="move" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
+            <select onChange={this.change} value={this.state.shelf}>
+              <option value="Move" disabled>Move to...</option>
+              <option value="CurrentlyReading">Currently Reading</option>
+              <option value="WantToRead">Want to Read</option>
+              <option value="Read">Read</option>
+              <option value="None">None</option>
             </select>
           </div>
         </div>
