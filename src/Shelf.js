@@ -15,9 +15,9 @@ class Shelf extends React.Component {
       this.changeShelf = this.changeShelf.bind(this);
   }
 
-  changeShelf(id, authors, cover, newshelf)
+  changeShelf(id, title, authors, cover, newshelf)
   {
-    this.props.onChangeShelf(id, authors, cover, newshelf);
+    this.props.onChangeShelf(id, title, authors, cover, newshelf);
   }
 
   componentWillReceiveProps(props) {
@@ -27,14 +27,20 @@ class Shelf extends React.Component {
   }
 
   render() {
+
+    if (this.state.booksOnShelf === undefined || this.state.booksOnShelf.length == 0) {
+      return <span>No books found</span>;
+    }
+
 		return (
         this.state.booksOnShelf.map((book) =>
          <li>
-           <Book key={book.title}
+           <Book key={book.id}
+                 id={book.id}
                  title={book.title}
-                 authors={book.authors}
-                 cover={book.cover}
-                 shelf={book.shelf}
+                 authors={book.authors !== undefined ? book.authors : ''}
+                 cover={book.imageLinks !== undefined ? book.imageLinks.thumbnail : ''}
+                 shelf={book.shelf !== undefined ? book.shelf : 'none'}
                  onChangeShelf={this.changeShelf} />
          </li>
   		)

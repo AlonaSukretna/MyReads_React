@@ -24,26 +24,47 @@ class Search extends React.Component {
     });
   }
 
-  changeShelf(id, authors, cover, newshelf)
+  changeShelf(id, title, authors, cover, newshelf)
   {
-    this.props.onChangeShelf(id, authors, cover, newshelf);
+    this.props.onChangeShelf(id, title, authors, cover, newshelf);
   }
 
   changeSearch(event) {
-    this.setState({
-      search: event.target.value
-    });
+
+    var query = event.target.value;
+
+    if (query !== '') {
+      BooksAPI.search(query).then((result) => {
+
+        this.setState({
+          books: result.error !== undefined ? [] : result,
+          search: query
+        });
+
+        console.log(result);
+      }, (err) => {
+        console.log(err);
+      });
+    }
+    else {
+      this.setState({
+        books: [],
+        search: query
+      });
+    }
   }
 
   render() {
 
+    /*
     var query = this.state.search;
     var booksFound = []
 
     if (query !== '') {
       booksFound = this.state.books.filter((book) => book.title.toLowerCase().search(query.toLowerCase()) !== -1 ||
-      book.authors.toLowerCase().search(query.toLowerCase()) !== -1);
+      book.authors.join(', ').toLowerCase().search(query.toLowerCase()) !== -1);
     }
+    */
 
 		return (
       <div className="search-books">
@@ -55,7 +76,7 @@ class Search extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <Shelf booksOnShelf={booksFound}
+            <Shelf booksOnShelf={this.state.books}
                    onChangeShelf={this.changeShelf} />
           </ol>
         </div>
