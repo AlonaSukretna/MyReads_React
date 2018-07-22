@@ -4,11 +4,10 @@ import './App.css'
 import { Route, Link } from "react-router-dom";
 import Shelf from "./Shelf";
 import Search from "./Search";
-import Book from "./Book";
 import update from 'immutability-helper'
 
 /*
-var mybooks = [
+var myBooks = [
   {
     title: "To Kill a Mockingbird",
     authors: "Harper Lee",
@@ -54,9 +53,22 @@ var mybooks = [
 ];
 */
 
-var currentlyReadingLabel = "currentlyReading";
-var wantToReadLabel = "wantToRead";
-var readLabel = "read";
+/*
+var myShelves = [
+  {
+    id: "currentlyReading",
+    name: "Currently Reading"
+  },
+  {
+    id: "wantToRead",
+    name: "Want To Read"
+  },
+  {
+    id: "read",
+    name: "Read"
+  }
+];
+*/
 
 class BooksApp extends React.Component {
 
@@ -67,35 +79,16 @@ class BooksApp extends React.Component {
         booksCurrentlyReading: [],
         booksWantToRead: [],
         booksRead: [],
-        search: ''
+        search: '',
+        currentlyReadingLabel: "currentlyReading",
+        wantToReadLabel: "wantToRead",
+        readLabel: "read"
       }
 
       this.changeShelf = this.changeShelf.bind(this);
-      //this.changeSearch = this.changeSearch.bind(this);
   }
 
   changeShelf(id, title, authors, cover, newshelf) {
-
-    /*
-    let updatedBook = this.state.books.filter(book => book.id === id);
-    updatedBook.shelf = newshelf;
-
-    let bookIndex = this.state.books.findIndex(book => book.id === id);
-    let updatedBooks = update(this.state.books, {
-      $splice: [[bookIndex, 1, {}]]
-    });
-
-    var booksCurrentlyReading = updatedBooks.filter(book => book.shelf === "currentlyReading");
-    var booksWantToRead = updatedBooks.filter(book => book.shelf === "wantToRead");
-    var booksRead = updatedBooks.filter(book => book.shelf === "read");
-
-    this.setState({
-      books: updatedBooks,
-      booksCurrentlyReading: booksCurrentlyReading,
-      booksWantToRead: booksWantToRead,
-      booksRead: booksRead
-    });
-    */
 
     BooksAPI.update({id: id}, newshelf).then((result) => {
 
@@ -114,10 +107,6 @@ class BooksApp extends React.Component {
       }
       else {
         //Introduce a brand new book from search to the shelf
-        console.log('start');
-        console.log(cover);
-        console.log('end');
-
         shelfBook = {id:id,
                      title: title,
                      authors: authors,
@@ -143,14 +132,6 @@ class BooksApp extends React.Component {
     });
   }
 
-  /*
-  changeSearch(event) {
-    this.setState({
-      search: event.target.value
-    });
-  }
-  */
-
   componentDidMount() {
 
     BooksAPI.getAll().then((result) => {
@@ -158,10 +139,6 @@ class BooksApp extends React.Component {
       var booksCurrentlyReading = result.filter(book => book.shelf === "currentlyReading");
       var booksWantToRead = result.filter(book => book.shelf === "wantToRead");
       var booksRead = result.filter(book => book.shelf === "read");
-
-      //console.log(booksCurrentlyReading);
-      //console.log(booksWantToRead);
-      //console.log(booksRead);
 
       this.setState({
         books: result,
@@ -186,36 +163,34 @@ class BooksApp extends React.Component {
             <h1>MyReads</h1>
           </div>
           <div className="list-books-content">
-            <div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading</h2>
-                <div className="bookshelf-books">
-                  <ol className="books-grid">
-                    <Shelf key={currentlyReadingLabel}
-                           booksOnShelf={this.state.booksCurrentlyReading}
-                           onChangeShelf={this.changeShelf} />
-                  </ol>
-                </div>
+            <div className="bookshelf">
+              <h2 className="bookshelf-title">Currently Reading</h2>
+              <div className="bookshelf-books">
+                <ol className="books-grid">
+                  <Shelf key={this.state.currentlyReadingLabel}
+                         booksOnShelf={this.state.booksCurrentlyReading}
+                         onChangeShelf={this.changeShelf} />
+                </ol>
               </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Want to Read</h2>
-                <div className="bookshelf-books">
-                  <ol className="books-grid">
-                    <Shelf key={wantToReadLabel}
-                           booksOnShelf={this.state.booksWantToRead}
-                           onChangeShelf={this.changeShelf} />
-                  </ol>
-                </div>
+            </div>
+            <div className="bookshelf">
+              <h2 className="bookshelf-title">Want to Read</h2>
+              <div className="bookshelf-books">
+                <ol className="books-grid">
+                  <Shelf key={this.state.wantToReadLabel}
+                         booksOnShelf={this.state.booksWantToRead}
+                         onChangeShelf={this.changeShelf} />
+                </ol>
               </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Read</h2>
-                <div className="bookshelf-books">
-                  <ol className="books-grid">
-                    <Shelf key={readLabel}
-                           booksOnShelf={this.state.booksRead}
-                           onChangeShelf={this.changeShelf} />
-                  </ol>
-                </div>
+            </div>
+            <div className="bookshelf">
+              <h2 className="bookshelf-title">Read</h2>
+              <div className="bookshelf-books">
+                <ol className="books-grid">
+                  <Shelf key={this.state.readLabel}
+                         booksOnShelf={this.state.booksRead}
+                         onChangeShelf={this.changeShelf} />
+                </ol>
               </div>
             </div>
           </div>

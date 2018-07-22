@@ -1,7 +1,5 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 import './App.css'
-import { Route, Link } from "react-router-dom";
 import Book from "./Book";
 
 class Shelf extends React.Component {
@@ -28,7 +26,7 @@ class Shelf extends React.Component {
 
   render() {
 
-    if (this.state.booksOnShelf === undefined || this.state.booksOnShelf.length == 0) {
+    if (this.state.booksOnShelf === undefined || this.state.booksOnShelf.length === 0) {
       return <span>No books found</span>;
     }
 

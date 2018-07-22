@@ -1,7 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Shelf from "./Shelf";
 
 class Search extends React.Component {
@@ -55,16 +55,6 @@ class Search extends React.Component {
   }
 
   render() {
-
-    /*
-    var query = this.state.search;
-    var booksFound = []
-
-    if (query !== '') {
-      booksFound = this.state.books.filter((book) => book.title.toLowerCase().search(query.toLowerCase()) !== -1 ||
-      book.authors.join(', ').toLowerCase().search(query.toLowerCase()) !== -1);
-    }
-    */
 
 		return (
       <div className="search-books">

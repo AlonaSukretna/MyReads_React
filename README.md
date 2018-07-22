@@ -42,22 +42,3 @@ $ npm install
 Run the application
 $ npm start
 This will open a new browser tab with the application running.
-
-# How I did the project
-1.  Fork and clone or download the starter repository:
-https://github.com/udacity/reactnd-project-myreads-starter.git
-2. To use React Router:
-   $ npm install --save react-router-dom
-3. index.js:
-import { BrowserRouter } from "react-router-dom"
-ReactDOM.render(<BrowserRouter><App /></BrowserRouter>...)
-4. App.js
-Import a new route:
-import { Route } from "react-router-dom";
-Add a route and history (to come back to the bookshelf) for search. Move the code.
-Add a route <Route exect path='/'. Move the code.
-5. Add a link:
-Add Link to Import
-Instead of <a> add Link in open-search and close-search classes.
-6. Creat new files Search.js, Shelf.js, ChangeShelf.js, Book.js and add them to App.js
-7. Decompose App.js to created files using props.

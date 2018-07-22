@@ -1,7 +1,5 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 import './App.css'
-import { Route, Link } from "react-router-dom";
 
 class Book extends React.Component {
 
@@ -34,7 +32,6 @@ class Book extends React.Component {
   }
 
   change(event){
-    //console.log(event.target.value);
     this.setState({
       shelf: event.target.value
     });
