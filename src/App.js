@@ -53,7 +53,6 @@ var myBooks = [
 ];
 */
 
-/*
 var myShelves = [
   {
     id: "currentlyReading",
@@ -68,7 +67,6 @@ var myShelves = [
     name: "Read"
   }
 ];
-*/
 
 class BooksApp extends React.Component {
 
@@ -163,36 +161,13 @@ class BooksApp extends React.Component {
             <h1>MyReads</h1>
           </div>
           <div className="list-books-content">
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <Shelf key={this.state.currentlyReadingLabel}
-                         booksOnShelf={this.state.booksCurrentlyReading}
-                         onChangeShelf={this.changeShelf} />
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <Shelf key={this.state.wantToReadLabel}
-                         booksOnShelf={this.state.booksWantToRead}
-                         onChangeShelf={this.changeShelf} />
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <Shelf key={this.state.readLabel}
-                         booksOnShelf={this.state.booksRead}
-                         onChangeShelf={this.changeShelf} />
-                </ol>
-              </div>
-            </div>
+            {myShelves.map((shelf, index) =>
+              <Shelf key={index}
+                     name={shelf.name}
+                     booksOnShelf={(shelf.name === "Currently Reading" ? this.state.booksCurrentlyReading :
+                                   (shelf.name === "Want To Read" ? this.state.booksWantToRead : this.state.booksRead))}
+                     onChangeShelf={this.changeShelf} />
+            )}
           </div>
           <div className="open-search">
             <Link to='/search'>Add a book</Link>

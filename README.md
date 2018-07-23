@@ -34,11 +34,19 @@ see all of the selections you made on the search page in your library.
 # How to install the application
 
 Clone or download this git repository
+
 $ git clone ...
+
 Go into the application folder
+
 $ cd ...
+
 Install dependencies
+
 $ npm install
+
 Run the application
+
 $ npm start
+
 This will open a new browser tab with the application running.

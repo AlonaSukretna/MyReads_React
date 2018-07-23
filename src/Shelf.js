@@ -7,6 +7,7 @@ class Shelf extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
+        name: props.name,
         booksOnShelf: props.booksOnShelf
       };
 
@@ -20,6 +21,7 @@ class Shelf extends React.Component {
 
   componentWillReceiveProps(props) {
     this.setState({
+      name: props.name,
       booksOnShelf: props.booksOnShelf
     });
   }
@@ -31,17 +33,24 @@ class Shelf extends React.Component {
     }
 
 		return (
-        this.state.booksOnShelf.map((book) =>
-         <li>
-           <Book key={book.id}
-                 id={book.id}
-                 title={book.title}
-                 authors={book.authors !== undefined ? book.authors : ''}
-                 cover={book.imageLinks !== undefined ? book.imageLinks.thumbnail : ''}
-                 shelf={book.shelf !== undefined ? book.shelf : 'none'}
-                 onChangeShelf={this.changeShelf} />
-         </li>
-  		)
+      <div className="bookshelf">
+        <h2 className="bookshelf-title">{this.state.name}</h2>
+        <div className="bookshelf-books">
+          <ol className="books-grid">
+            {this.state.booksOnShelf.map((book, index) =>
+             <li key={index}>
+               <Book key={book.id}
+                     id={book.id}
+                     title={book.title}
+                     authors={book.authors !== undefined ? book.authors : ''}
+                     cover={book.imageLinks !== undefined ? book.imageLinks.thumbnail : ''}
+                     shelf={book.shelf !== undefined ? book.shelf : 'none'}
+                     onChangeShelf={this.changeShelf} />
+             </li>
+      		)}
+          </ol>
+        </div>
+      </div>
     );
 	}
 
