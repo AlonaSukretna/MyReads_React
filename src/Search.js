@@ -10,6 +10,7 @@ class Search extends React.Component {
       super(props);
       this.state = {
         books: props.books,
+        foundBooks: props.foundBooks,
         search: ''
       };
 
@@ -20,6 +21,7 @@ class Search extends React.Component {
   componentWillReceiveProps(props) {
     this.setState({
       books: props.books,
+      foundBooks: props.foundBooks,
       search: ''
     });
   }
@@ -37,7 +39,7 @@ class Search extends React.Component {
       BooksAPI.search(query).then((result) => {
 
         this.setState({
-          books: result.error !== undefined ? [] : result,
+          foundBooks: result.error !== undefined ? [] : result,
           search: query
         });
 
@@ -48,7 +50,7 @@ class Search extends React.Component {
     }
     else {
       this.setState({
-        books: [],
+        foundBooks: [],
         search: query
       });
     }
@@ -66,7 +68,8 @@ class Search extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <Shelf booksOnShelf={this.state.books}
+            <Shelf books={this.state.books}
+                   booksOnShelf={this.state.foundBooks}
                    onChangeShelf={this.changeShelf} />
           </ol>
         </div>

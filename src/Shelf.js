@@ -8,7 +8,8 @@ class Shelf extends React.Component {
       super(props);
       this.state = {
         name: props.name,
-        booksOnShelf: props.booksOnShelf
+        booksOnShelf: props.booksOnShelf,
+        books: props.books
       };
 
       this.changeShelf = this.changeShelf.bind(this);
@@ -22,7 +23,8 @@ class Shelf extends React.Component {
   componentWillReceiveProps(props) {
     this.setState({
       name: props.name,
-      booksOnShelf: props.booksOnShelf
+      booksOnShelf: props.booksOnShelf,
+      books: props.books
     });
   }
 
@@ -44,7 +46,9 @@ class Shelf extends React.Component {
                      title={book.title}
                      authors={book.authors !== undefined ? book.authors : ''}
                      cover={book.imageLinks !== undefined ? book.imageLinks.thumbnail : ''}
-                     shelf={book.shelf !== undefined ? book.shelf : 'none'}
+                     shelf={book.shelf !== undefined ? book.shelf :
+                       (this.state.books.filter(currentBook => currentBook.id === book.id)[0] !== undefined ?
+                        this.state.books.filter(currentBook => currentBook.id === book.id)[0].shelf : 'none') }
                      onChangeShelf={this.changeShelf} />
              </li>
       		)}
